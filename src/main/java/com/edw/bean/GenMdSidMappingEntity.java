@@ -227,4 +227,26 @@ public class GenMdSidMappingEntity {
     public void setSidBuyerSeller(String sidBuyerSeller) {
         this.sidBuyerSeller = sidBuyerSeller;
     }
+
+    @Override
+    public String toString() {
+        return "GenMdSidMappingEntity{" +
+                "mappingId=" + mappingId +
+                ", accountId=" + accountId +
+                ", sidCode='" + sidCode + '\'' +
+                ", tradingId='" + tradingId + '\'' +
+                ", memberId=" + memberId +
+                ", recordStatus=" + recordStatus +
+                ", uploadId=" + uploadId +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn=" + createdOn +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", modifiedOn=" + modifiedOn +
+                ", checkedBy='" + checkedBy + '\'' +
+                ", checkedOn=" + checkedOn +
+                ", approvedBy='" + approvedBy + '\'' +
+                ", approvedOn=" + approvedOn +
+                ", sidBuyerSeller='" + sidBuyerSeller + '\'' +
+                '}';
+    }
 }

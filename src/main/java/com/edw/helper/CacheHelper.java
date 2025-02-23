@@ -24,13 +24,13 @@ public class CacheHelper {
         this.remoteCacheManager = remoteCacheManager;
     }
 
-    public void save(GenMdSidMappingEntity genMdSidMappingEntity) throws Exception {
+    public void save(GenMdSidMappingEntity genMdSidMappingEntity) {
         final RemoteCache cache = remoteCacheManager.getCache("GEN_MD_SID_MAPPING");
         cache.put(genMdSidMappingEntity.getMappingId(), genMdSidMappingEntity);
     }
 
-    public GenMdSidMappingEntity get(Long id) throws Exception {
+    public GenMdSidMappingEntity get(Long mappingId) {
         final RemoteCache cache = remoteCacheManager.getCache("GEN_MD_SID_MAPPING");
-        return (GenMdSidMappingEntity) cache.get(id);
+        return (GenMdSidMappingEntity) cache.get(mappingId);
     }
 }
