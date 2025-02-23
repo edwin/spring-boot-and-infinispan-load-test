@@ -22,9 +22,9 @@ public class InfinispanConfiguration {
     public RemoteCacheManager remoteCacheManager() {
         return new RemoteCacheManager(
                 new ConfigurationBuilder()
-                        .addServers("127.0.0.1:11222")
+                        .addServers("localhost:11222")
                         .security().authentication().username("admin").password("password")
-                        .clientIntelligence(ClientIntelligence.HASH_DISTRIBUTION_AWARE)
+                        .clientIntelligence(ClientIntelligence.BASIC)
                         .marshaller(new ProtoStreamMarshaller())
                         .addContextInitializer(new GenMdSidMappingEntitySchemaInitializerImpl())
                         .build());

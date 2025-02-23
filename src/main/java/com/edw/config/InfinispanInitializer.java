@@ -33,10 +33,10 @@ public class InfinispanInitializer implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception {
         Path proto = Paths.get(RemoteQuery.class.getClassLoader()
-                .getResource("proto/Employee.proto").toURI());
+                .getResource("proto/GenMdSidMappingEntity.proto").toURI());
         String protoBufCacheName = ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME;
-        cacheManager.getCache(protoBufCacheName).put("Employee.proto", Files.readString(proto));
-        cacheManager.administration().getOrCreateCache("employee",
+        cacheManager.getCache(protoBufCacheName).put("GenMdSidMappingEntity.proto", Files.readString(proto));
+        cacheManager.administration().getOrCreateCache("GEN_MD_SID_MAPPING",
                 new XMLStringConfiguration("<?xml version=\"1.0\"?>\n" +
                         "<replicated-cache name=\"GEN_MD_SID_MAPPING\" mode=\"SYNC\" remote-timeout=\"600000\" statistics=\"true\">\n" +
                             "<encoding media-type=\"application/x-protostream\"/>\n" +

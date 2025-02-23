@@ -30,7 +30,7 @@ public class CacheHelper {
     }
 
     public GenMdSidMappingEntity get(Long id) throws Exception {
-        final RemoteCache cache = remoteCacheManager.getCache("employee");
+        final RemoteCache cache = remoteCacheManager.getCache("GEN_MD_SID_MAPPING");
         return (GenMdSidMappingEntity) cache.get(id);
     }
 }
