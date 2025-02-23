@@ -20,14 +20,14 @@ import java.util.*;
 public class IndexController {
 
     private CacheHelper cacheHelper;
-    private List<Long> list = new ArrayList();
+    private List<String> list = new ArrayList();
 
     @Autowired
     public IndexController(CacheHelper cacheHelper) {
         this.cacheHelper = cacheHelper;
 
         for (int i = 0; i < 10000; i++) {
-            list.add(new Random().nextLong());
+            list.add(UUID.randomUUID().toString());
         }
     }
 
@@ -41,10 +41,10 @@ public class IndexController {
     @GetMapping(path = "/generate-data")
     public Map generateData() {
 
-        for (Long mappingId : list) {
+        for (String tradingId : list) {
             cacheHelper.save(new GenMdSidMappingEntity(UUID.randomUUID().toString(), new Date(), "approvedBy" , new Date(), "checkedBy", new Date(), "modifiedBy",
-                    new Date(), "createdBy", new Random().nextLong(), 'c', new Random().nextLong(), "tradingId", "sidCode",
-                    new Random().nextLong(), mappingId));
+                    new Date(), "createdBy", new Random().nextLong(), 'c', new Random().nextLong(), tradingId, "sidCode",
+                    new Random().nextLong(), new Random().nextLong()));
         }
 
         return new HashMap() {{
@@ -55,8 +55,8 @@ public class IndexController {
     @GetMapping(path = "/generate-get")
     public Map generateGet() {
 
-        for (Long mappingId : list) {
-            System.out.println(cacheHelper.get(mappingId));
+        for (String tradingId : list) {
+            System.out.println(cacheHelper.get(tradingId));
         }
 
         return new HashMap() {{

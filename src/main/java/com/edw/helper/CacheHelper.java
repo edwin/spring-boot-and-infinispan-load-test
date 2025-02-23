@@ -3,8 +3,13 @@ package com.edw.helper;
 import com.edw.bean.GenMdSidMappingEntity;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.client.hotrod.Search;
+import org.infinispan.query.dsl.Query;
+import org.infinispan.query.dsl.QueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -29,8 +34,11 @@ public class CacheHelper {
         cache.put(genMdSidMappingEntity.getMappingId(), genMdSidMappingEntity);
     }
 
-    public GenMdSidMappingEntity get(Long mappingId) {
+    public List<GenMdSidMappingEntity> get(String tradingId) {
         final RemoteCache cache = remoteCacheManager.getCache("GEN_MD_SID_MAPPING");
-        return (GenMdSidMappingEntity) cache.get(mappingId);
+        QueryFactory queryFactory = Search.getQueryFactory(cache);
+        Query<GenMdSidMappingEntity> query = queryFactory.create("from proto.GenMdSidMappingEntity where tradingId = :param1");
+        query.setParameter("param1", tradingId);
+        return query.execute().list();
     }
 }
