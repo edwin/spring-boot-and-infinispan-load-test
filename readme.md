@@ -1,8 +1,9 @@
 # Integrate Spring Boot and Remote Infinispan 15
 
 ## Version
-- Spring Boot 3.0.5
-- Infinispan 15.0.8.Final
+- Spring Boot 2.7.13
+- Infinispan 15.0.8.Final for Server
+- Infinispan 14.0.21.Final for Client
 - Java 17
 
 ## How to Start Infinispan
