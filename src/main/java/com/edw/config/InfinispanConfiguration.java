@@ -26,7 +26,6 @@ public class InfinispanConfiguration {
                         .security().authentication().username("admin").password("password")
                         .clientIntelligence(ClientIntelligence.BASIC)
                         .marshaller(new ProtoStreamMarshaller())
-                        .addContextInitializer(new GenMdSidMappingEntitySchemaInitializerImpl())
                         .build());
     }
 

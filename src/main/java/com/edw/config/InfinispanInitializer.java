@@ -1,8 +1,13 @@
 package com.edw.config;
 
+import com.edw.bean.GenMdSidMappingEntity;
+import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.impl.query.RemoteQuery;
+import org.infinispan.client.hotrod.marshall.MarshallerUtil;
 import org.infinispan.commons.configuration.XMLStringConfiguration;
+import org.infinispan.protostream.SerializationContext;
+import org.infinispan.protostream.annotations.ProtoSchemaBuilder;
 import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,10 +37,24 @@ public class InfinispanInitializer implements CommandLineRunner {
 
     @Override
     public void run(String...args) throws Exception {
-        Path proto = Paths.get(RemoteQuery.class.getClassLoader()
-                .getResource("proto/GenMdSidMappingEntity.proto").toURI());
-        String protoBufCacheName = ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME;
-        cacheManager.getCache(protoBufCacheName).put("GenMdSidMappingEntity.proto", Files.readString(proto));
+
+        SerializationContext ctx = MarshallerUtil.getSerializationContext(cacheManager);
+        RemoteCache<String, String> protoMetadataCache = cacheManager.getCache(ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME);
+
+        String msgSchemaFile = null;
+        try {
+            ProtoSchemaBuilder protoSchemaBuilder = new ProtoSchemaBuilder();
+            msgSchemaFile = protoSchemaBuilder.fileName("GenMdSidMappingEntity.proto").packageName("proto").addClass(GenMdSidMappingEntity.class).build(ctx);
+            protoMetadataCache.put("GenMdSidMappingEntity.proto", msgSchemaFile);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to build protobuf definition from 'User class'", e);
+        }
+
+        String errors = protoMetadataCache.get(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX);
+        if (errors != null) {
+            throw new IllegalStateException("Some Protobuf schema files contain errors: " + errors + "\nSchema :\n" + msgSchemaFile);
+        }
+
         cacheManager.administration().getOrCreateCache("GEN_MD_SID_MAPPING",
                 new XMLStringConfiguration("<?xml version=\"1.0\"?>\n" +
                         "<replicated-cache name=\"GEN_MD_SID_MAPPING\" mode=\"SYNC\" remote-timeout=\"600000\" statistics=\"true\">\n" +

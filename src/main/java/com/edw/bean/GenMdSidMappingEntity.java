@@ -2,8 +2,6 @@ package com.edw.bean;
 
 import org.infinispan.api.annotations.indexing.Basic;
 import org.infinispan.api.annotations.indexing.Indexed;
-import org.infinispan.api.annotations.indexing.Keyword;
-import org.infinispan.protostream.annotations.ProtoFactory;
 import org.infinispan.protostream.annotations.ProtoField;
 
 import java.io.Serializable;
@@ -19,7 +17,7 @@ import java.util.Date;
  * 22 Feb 2025 16:16
  */
 @Indexed
-public class GenMdSidMappingEntity {
+public class GenMdSidMappingEntity implements Serializable {
 
     private Long mappingId;
 
