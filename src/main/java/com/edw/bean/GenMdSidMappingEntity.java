@@ -76,7 +76,7 @@ public class GenMdSidMappingEntity implements Serializable {
     }
 
     @ProtoField(number = 1)
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     public Long getMappingId() {
         return mappingId;
     }
@@ -85,7 +85,7 @@ public class GenMdSidMappingEntity implements Serializable {
         this.mappingId = mappingId;
     }
 
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     @ProtoField(number = 2)
     public Long getAccountId() {
         return accountId;
@@ -96,7 +96,7 @@ public class GenMdSidMappingEntity implements Serializable {
     }
 
     @ProtoField(number = 3)
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     public String getSidCode() {
         return sidCode;
     }
@@ -105,7 +105,7 @@ public class GenMdSidMappingEntity implements Serializable {
         this.sidCode = sidCode;
     }
 
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     @ProtoField(number = 4)
     public String getTradingId() {
         return tradingId;
@@ -115,7 +115,7 @@ public class GenMdSidMappingEntity implements Serializable {
         this.tradingId = tradingId;
     }
 
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     @ProtoField(number = 5)
     public Long getMemberId() {
         return memberId;
@@ -125,7 +125,7 @@ public class GenMdSidMappingEntity implements Serializable {
         this.memberId = memberId;
     }
 
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     @ProtoField(number = 6)
     public Character getRecordStatus() {
         return recordStatus;
@@ -135,7 +135,7 @@ public class GenMdSidMappingEntity implements Serializable {
         this.recordStatus = recordStatus;
     }
 
-    @Basic(sortable = true, searchable = true, projectable = true)
+    @Basic(sortable = true, projectable = true)
     @ProtoField(number = 7)
     public Long getUploadId() {
         return uploadId;

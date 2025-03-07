@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <pre>
@@ -55,12 +57,22 @@ public class IndexController {
     @GetMapping(path = "/generate-get")
     public Map generateGet() {
 
-        for (String tradingId : list) {
-            System.out.println(cacheHelper.get(tradingId));
-        }
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 1; i++) executor.execute(new SomeTask());
 
         return new HashMap() {{
             put("status", "success");
         }};
+    }
+
+    private class SomeTask implements Runnable
+    {
+        @Override
+        public void run()
+        {
+            for (String tradingId : list) {
+                System.out.println(cacheHelper.get(tradingId));
+            }
+        }
     }
 }
