@@ -58,14 +58,16 @@ public class IndexController {
     public Map generateGet() {
 
         ExecutorService executor = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 1; i++) executor.execute(new SomeTask());
+        for (int i = 0; i < 1; i++) {
+            executor.execute(new CacheInquiry());
+        }
 
         return new HashMap() {{
             put("status", "success");
         }};
     }
 
-    private class SomeTask implements Runnable
+    private class CacheInquiry implements Runnable
     {
         @Override
         public void run()
